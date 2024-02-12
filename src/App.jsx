@@ -2,6 +2,13 @@ import './App.css';
 import {Link} from "react-router-dom"
 import Navbar from './Components/Navbar';
 import styled from "styled-components"
+import { createContext } from 'react';
+import { useState } from 'react';
+
+const ThemeContext = createContext()
+
+export {ThemeContext}
+
 
 const StyledApp = styled.div`
   width: 100%;
@@ -54,16 +61,24 @@ const StyledApp = styled.div`
 `
 
 function App() {
+
+  const [theme, setTheme] = useState("light")
+  const data = {
+    theme, setTheme
+  }
+
   return (
-    <StyledApp >
-      <Navbar />
-      <div className="content">
-        <h1>
-          Welcome to <span>QuizMania</span>
-        </h1>
-        <Link to="/categories">Explore Categories</Link>
-      </div>
-    </StyledApp>
+    <ThemeContext.Provider value={data}>
+      <StyledApp >
+        <Navbar />
+        <div className="content">
+          <h1>
+            Welcome to <span>QuizMania</span>
+          </h1>
+          <Link to="/categories">Explore Categories</Link>
+        </div>
+      </StyledApp>
+    </ThemeContext.Provider>
   );
 }
 
